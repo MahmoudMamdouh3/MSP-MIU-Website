@@ -1,130 +1,122 @@
-# MSP Tech Club - Website & Automation Systems
+# MSP Application Processing System
 
-## Introduction
+## 📁 Project Structure
 
-This repository is part of the work we're doing at the **MSP Tech Club at Misr International University** to build useful systems that actually serve the needs of the club. The goal is simple: solve real problems we face — faster communication, better organization, less manual work — using clean, maintainable code.
-
-Everything here is built with **Django**, so the backend and frontend are unified under one stack. That makes it easier for contributors to get involved, whether you're writing APIs, building UI, or automating tasks.
-
-If you're contributing to this repo, you're not just writing code — you're helping the club run more efficiently, and building tools that will be used by real people across events, sessions, recruitment, and more.
-
-This project is also meant to be a learning experience. Whether you're familiar with Python or just getting started, the systems are designed to be easy to follow, practical, and extendable.
-
-At this point, the project is intentionally **monolithic** — everything lives in one codebase. This simplifies development and makes it easier for contributors to understand the full system without jumping across multiple services or repositories.
-
----
-
-## Core Systems to Be Built
-
-This repository will eventually include several internal tools, all integrated into the same Django-based system:
-
-- **Email Automation**  
-  Send customized emails to members and applicants using templates and CSV input.
-
-- **WhatsApp Group Automation**  
-  Add users to WhatsApp groups automatically based on Excel/CSV data using automation tools.
-
-- **Discord Automation**  
-  Handle roles, messages, and channels in our Discord server via bot integrations.
-
-- **Attendance System**  
-  A system to take and verify attendance at events, designed to scale beyond 200+ attendees.
-
-- **Certificate Generator**  
-  Automatically generate digital certificates from member lists or event participation data.
-
-- **Smart Media Tools**  
-  Tools for generating name tags or content from text (e.g., prompts for social media designs).
-
-- **Sessions & Events Scheduler**  
-  A centralized place to plan and view upcoming technical and non-technical sessions.
-
-- **Backend System (Django)**  
-  REST APIs, admin logic, and automation scripts powering all features. Clean, secure, and built for maintainability.
-
-- **Frontend (Django Templates + Tailwind CSS)**  
-  Web interface for all users (public, members, board), integrated directly into the Django backend for faster iteration.
-
-- **Database Layer**  
-  Structured models using Django ORM, with support for migrations, data seeding, and flexible integrations.
-
-- **Club Website Platform**  
-  The central platform that ties all tools together — public site, member portal, event system, and internal dashboards — all under one unified system.
-
----
-
-# 🛑 Do These Before You Start Coding!
-
-## ✅ 1. Install VS Code
-Get it from: https://code.visualstudio.com/
-
-## ✅ 2. Install Python & Jupyter Extensions in VS Code
-- Open VS Code
-- Go to the Extensions tab (Ctrl + Shift + X)
-- Search and install:
-  - ✅ Python
-  - ✅ Jupyter
-
-## ✅ 3. Make Sure Python is Installed
-Download it: https://www.python.org/downloads/
-
-Check installation by running (in terminal):
-```bash
-python --version
-python3 --version
+```
+msp_application_system/
+├── main.ipynb                    # Main orchestrator notebook
+├── config/
+│   ├── settings.py              # Configuration settings
+│   └── email_templates.py       # Email templates
+├── notebooks/
+│   ├── 01_data_reader.ipynb     # CSV/Excel reading and validation
+│   ├── 02_data_processor.ipynb  # Duplicate handling & conflict resolution
+│   ├── 03_decision_manager.ipynb # Approval/rejection logic
+│   ├── 04_email_sender.ipynb    # Email automation
+│   └── 05_reporter.ipynb        # Logging and reporting
+├── utils/
+│   ├── __init__.py
+│   ├── file_handler.py          # File operations utilities
+│   ├── data_validator.py        # Data validation functions
+│   └── logger.py               # Logging utilities
+├── data/
+│   ├── input/                   # Put your CSV/Excel files here
+│   ├── processed/               # Processed files
+│   └── reports/                 # Generated reports
+└── logs/
+    └── application_processing.log
 ```
 
-## ✅ 4. Make Sure Git is Installed
+## 🛠 Core Features
+
+### 1. **Data Reading & Validation**
+- Reads multiple CSV/Excel files from input directory
+- Handles different file formats and encodings
+- Validates required columns (email, name, etc.)
+- Creates standardized data structure
+
+### 2. **Duplicate & Conflict Management**
+- **Email-based duplicates**: Same email across files
+- **Name-based duplicates**: Similar names with different emails
+- **Partial duplicates**: Same person, different information
+- **Conflict resolution**: Manual review for conflicting records
+- **Duplicate reporting**: Detailed logs of all duplicates found
+
+### 3. **Decision Management**
+- Automatically creates "Status" column if missing
+- Supports multiple decision criteria:
+  - Manual approval (you decide)
+  - Automatic based on criteria (GPA, year, etc.)
+  - Bulk operations
+- Tracks decision history and reasoning
+
+### 4. **Email Automation**
+- Personalized acceptance emails
+- Rejection emails (optional)
+- Email templates with placeholders
+- Batch sending with rate limiting
+- Email delivery tracking and retry logic
+
+### 5. **Comprehensive Reporting**
+- Processing summary reports
+- Duplicate analysis reports  
+- Email delivery status
+- Error logs and warnings
+- Statistics dashboard
+
+## 🚀 Getting Started
+
+### Prerequisites
 ```bash
-git --version
-```
-Avoid pushing unnecessary files or folders to important branches. If you need help with Git, Mohamed Hisham is the go-to guy, feel free to ask him.
-
-## ✅ 5. Use Git Properly
-- Create a separate branch for whatever feature you're working on, merge later when needed.
-- Create a GitHub account if you don't have one already.
-- Join our club's public repo as a contributor:
-  - Send your email to Shady or Mahmoud, they'll add you.
-  - Repo: https://github.com/MahmoudMamdouh3/MSP-MIU-Website
-
-Configure Git on your machine:
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "youremail@gmail.com"
-git config --global core.editor "code --wait"
-git config --global core.autocrlf
-```
-
-## 🧪 Virtual Environment Setup (Important!)
-Before installing any Python dependencies, always create a virtual environment, this avoids version conflicts and keeps things clean.
-
-**Create command:**
-```bash
-python3 -m venv your_env_name
-```
-
-**🔄 Activate the environment:**
-- Linux/macOS: `source your_env_name/bin/activate`
-- Windows: `your_env_name\Scripts\activate`
-
-**📦 Install packages (inside the env):**
-```bash
-pip install package_name
-```
-
-**❌ Deactivate when done:**
-```bash
-deactivate
-```
-
-## 📓 Jupyter Notebooks in VS Code
-We'll be using Jupyter notebooks for most demos or work.
-
-If not already installed:
-```bash
-pip install notebook
+pip install pandas openpyxl xlrd smtplib-ssl jinja2 python-dotenv
 ```
 
-- Jupyter notebook files have the .ipynb extension. You can create any file and rename it to that.
-- Make sure the top-right corner of the notebook shows the correct Python interpreter (kernel).
-- If it's wrong, click it and select your virtual environment.
+### Quick Start
+1. Place your CSV/Excel files in `data/input/`
+2. Configure email settings in `config/settings.py`
+3. Run `main.ipynb` and follow the interactive workflow
+4. Review reports in `data/reports/`
+
+## 📋 Workflow Overview
+
+```mermaid
+graph TD
+    A[Place CSV/Excel files in data/input/] --> B[Run main.ipynb]
+    B --> C[01_data_reader.ipynb: Load & Validate Data]
+    C --> D[02_data_processor.ipynb: Handle Duplicates]
+    D --> E[03_decision_manager.ipynb: Approve/Reject]
+    E --> F[04_email_sender.ipynb: Send Emails]
+    F --> G[05_reporter.ipynb: Generate Reports]
+    G --> H[Review logs/ and data/reports/]
+```
+
+## ⚙️ Configuration Options
+
+- **Email providers**: Gmail, Outlook, custom SMTP
+- **Duplicate detection sensitivity**: Strict, moderate, lenient
+- **Batch processing**: Process files individually or merge all
+- **Email scheduling**: Immediate, delayed, or manual trigger
+- **Approval criteria**: Manual, automatic, or hybrid
+
+## 🔍 Duplicate Detection Strategy
+
+### Types of Duplicates Detected:
+1. **Exact Email Match**: Same email address
+2. **Name Similarity**: Fuzzy matching for similar names  
+3. **Phone Number Match**: Same phone numbers
+4. **Student ID Match**: Same university ID
+5. **Cross-File Conflicts**: Same person in multiple files with different data
+
+### Conflict Resolution:
+- **Auto-merge**: For minor differences (formatting, etc.)
+- **Manual review**: For significant conflicts
+- **Latest wins**: Use most recent application
+- **Best data**: Combine best information from all sources
+
+## 📊 Expected Output
+
+- **Processed CSV**: Clean, deduplicated data with decisions
+- **Email logs**: Who got emailed, when, status
+- **Duplicate report**: All duplicates found and how handled
+- **Statistics**: Acceptance rates, processing summary
+- **Error log**: Any issues encountered during processing
