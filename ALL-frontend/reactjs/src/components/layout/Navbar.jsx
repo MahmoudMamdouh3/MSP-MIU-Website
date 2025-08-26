@@ -6,8 +6,12 @@ import tiktoklogo from '/assets/icons/tiktok-logo.svg';
 import youtubelogo from '/assets/icons/youtube-logo.svg';
 import envelope from '/assets/icons/envelope.svg';
 import openenvelope from '/assets/icons/open-envelope.svg';
+import { useState } from 'react';
 
 const Navbar = () => {
+
+    const [hovered, setHovered] = useState(false);
+
     return (
         <>
             <div className='container'>
@@ -34,8 +38,12 @@ const Navbar = () => {
                             <img src={youtubelogo} alt="Youtube Logo" />
                             <span>Youtube</span>
                         </div>
-                        <div className=''>
-                            <img src={envelope} alt="Contact Logo" />
+                        <div className=''
+                            onMouseEnter={() => setHovered(true)}
+                            onMouseLeave={() => setHovered(false)}>
+                            <img
+                                src={hovered ? openenvelope : envelope}
+                                alt="Contact Logo" />
                             <span>Contact</span>
                         </div>
                     </div>
