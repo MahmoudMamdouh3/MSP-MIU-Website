@@ -1,7 +1,7 @@
 .footer {
   position: relative;
   margin-top: 4rem;
-  background: radial-gradient(circle at 20% 20%, #101823, #060b12 70%);
+  background: radial-gradient(circle at 20% 20%, #0f161f, #1b427a 70%);
   color: #d6e2f3;
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overflow: hidden;

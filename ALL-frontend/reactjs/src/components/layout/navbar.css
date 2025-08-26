@@ -1,9 +1,8 @@
-/* Color system (easily tweakable) */
 :root {
     --nav-bg-start: #111d2f;
     --nav-bg-mid: #132338;
     --nav-bg-end: #1f2f55;
-    --nav-glow-accent: 198, 135, 255; /* rgb triplet */
+    --nav-glow-accent: 198, 135, 255; 
     --nav-border: rgba(255,255,255,0.18);
     --nav-inner-border: rgba(255,255,255,0.28);
     --nav-text: #d8e7f7;
@@ -20,7 +19,7 @@
     justify-content: space-between;
     padding: 1.1rem 2.25rem;
     background:
-      linear-gradient(140deg, rgba(255,255,255,0.04), rgba(255,255,255,0) 60%),
+      linear-gradient(140deg, rgba(255,255,255,0.04), rgba(255, 17, 17, 0) 60%),
       linear-gradient(115deg, var(--nav-bg-start) 0%, var(--nav-bg-mid) 52%, var(--nav-bg-end) 100%);
     box-shadow:
         0 4px 22px -6px rgba(0,0,0,0.55),
